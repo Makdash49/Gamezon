@@ -15,6 +15,7 @@ gem 'rake'
 
 gem 'shotgun'
 gem 'hirb'
+gem 'amazon-ecs'
 
 group :test do
   gem 'shoulda-matchers'
@@ -26,4 +27,5 @@ end
 group :test, :development do
   gem 'factory_girl'
   gem 'faker'
+  gem 'dotenv'
 end
