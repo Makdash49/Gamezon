@@ -21,6 +21,17 @@ post '/products' do
 
 
 
+  # output = request.item_search(
+  #   query: {
+  #     'Keywords' => "#{params[:search_terms]}",
+  #     'SearchIndex' => 'All',
+  #     'ItemPage' => '1',
+  #     'ItemSearch.Shared.ResponseGroup' => 'Large',
+  #   }
+  # )
+
+
+
   output = request.item_search(
     query: {
       'Keywords' => "#{params[:search_terms]}",
@@ -43,7 +54,9 @@ post '/products' do
 
 
   @feature_array = price_link['ItemAttributes']['Feature']
+  @title = price_link['ItemAttributes']['Title']
 
   erb :"products/show"
+
 
 end
