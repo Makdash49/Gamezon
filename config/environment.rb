@@ -50,11 +50,15 @@ require APP_ROOT.join('config', 'database')
 # Options set in the configure block will add/update to the default options, i.e.
 #  options[:version] => "2011-08-01"
 #  options[:service] => "AWSECommerceService"
-Amazon::Ecs.configure do |options|
-  options[:AWS_access_key_id] = ENV['AMAZON_ACCESS_KEY']
-  options[:AWS_secret_key] = ENV['AMAZON_SECRET_KEY']
-  options[:associate_tag] = ENV['AMAZON_ASSOCIATE_TAG']
-end
+
+
+
+# Amazon::Ecs.configure do |options|
+#   options[:AWS_access_key_id] = ENV['AMAZON_ACCESS_KEY']
+#   options[:AWS_secret_key] = ENV['AMAZON_SECRET_KEY']
+#   options[:associate_tag] = ENV['AMAZON_ASSOCIATE_TAG']
+# end
+
 
 # Or if you need to replace the default options, set the options value directly.
 # Amazon::Ecs.options = {

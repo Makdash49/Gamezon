@@ -16,6 +16,7 @@ gem 'rake'
 gem 'shotgun'
 gem 'hirb'
 gem 'amazon-ecs'
+gem 'vacuum'
 
 group :test do
   gem 'shoulda-matchers'
