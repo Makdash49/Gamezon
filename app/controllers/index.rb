@@ -1,7 +1,7 @@
 require 'vacuum'
 
 get '/' do
-  redirect '/products/new'
+  erb :index
 end
 
 get '/products/new' do
@@ -32,6 +32,9 @@ post '/products' do
   # data = output.to_h.to_json
 
   # This let's you access the hash:
+  puts "************************************************************"
+  puts output
+
   data = output.to_h
   @photo = data['ItemSearchResponse']['Items']['Item'].first['LargeImage']['URL']
   price_link = data['ItemSearchResponse']['Items']['Item'].first
@@ -44,10 +47,6 @@ post '/products' do
 
   @descriptions = price_link['ItemAttributes']['Feature']
   @name = price_link['ItemAttributes']['Title']
-
-  puts "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-  puts "Description 1 and 2"
-  p @descriptions
 
 
 
@@ -78,3 +77,22 @@ post '/products' do
     "Did not save.  Please be more specific."
   end
 end
+
+
+
+get '/games/new' do
+  erb :"games/new"
+end
+
+post '/games' do
+  @product = Product.first
+
+  @game = Game.new(player1: params[:player1], player2: params[:player2])
+  if @game.save
+    erb :"games/show"
+  else
+    "WTF Bro"
+  end
+end
+
+
