@@ -1,19 +1,29 @@
 require 'vacuum'
 
 get '/' do
-	"hello world"
+  redirect '/products/new'
+end
+
+get '/products/new' do
+  erb :"products/new"
+end
+
+
+post '/products' do
+  p params[:search_terms]
 	request = Vacuum.new
 
-# 	request.configure(
-#     aws_access_key_id:
-#     aws_secret_access_key:
-#     associate_tag:
-# )
+  request.configure(
+      aws_access_key_id: ENV['AMAZON_ACCESS_KEY'],
+      aws_secret_access_key: ENV['AMAZON_SECRET_KEY'],
+      associate_tag: ENV['AMAZON_ASSOCIATE_TAG']
+  )
+
 
 
   output = request.item_search(
     query: {
-      'Keywords' => 'cigarette',
+      'Keywords' => "#{params[:search_terms]}",
       'SearchIndex' => 'All',
       'ItemPage' => '1',
       'ItemSearch.Shared.ResponseGroup' => 'Large',
@@ -34,6 +44,6 @@ get '/' do
 
   @feature_array = price_link['ItemAttributes']['Feature']
 
-  erb :show
+  erb :"products/show"
 
 end
