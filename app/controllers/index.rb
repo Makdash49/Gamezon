@@ -1,3 +1,5 @@
+enable :sessions
+
 require 'vacuum'
 
 get '/' do
@@ -84,15 +86,68 @@ get '/games/new' do
   erb :"games/new"
 end
 
+
 post '/games' do
-  @product = Product.first
 
   @game = Game.new(player1: params[:player1], player2: params[:player2])
   if @game.save
-    erb :"games/show"
+    # session[:game_id] = @game.id
+    current_game_id= @game.id
+
+    redirect "/games/#{@game.id}/matches/new"
   else
     "WTF Bro"
   end
 end
+
+get "/games/:game_id/matches/new" do
+  @product = Product.first
+  @game = Game.find(params[:game_id])
+  erb :"matches/new"
+end
+
+
+
+post '/games/:game_id/matches' do
+  @game = Game.find(params[:game_id])
+  params[:player1_guess] + " " + params[:player2_guess] + " " + params[:game_id]
+  match = Match.new(player1_guess: params[:player1_guess], player2_guess: params[:player2_guess], game_id: params[:game_id])
+  if match.save
+    redirect "/games/#{@game.id}/matches/#{match.id}"
+  else
+    "WTF Bro"
+  end
+end
+
+
+get '/games/:game_id/matches/:match_id' do
+  @game = Game.find(params[:game_id])
+  @match = Match.find(params[:match_id])
+  if @match.player1_guess > @match.player2_guess
+    @message = "Player1 is the winner!"
+  else
+    @message = "Player2 is the winner!"
+  end
+  erb :"matches/show"
+end
+
+# get '/matches/new' do
+#   @game = Game.find(current_game_id)
+#   @product = Product.last
+#   # # We could make a helper that has the current game id.
+#   erb :"matches/new"
+# end
+
+
+
+
+
+
+
+
+
+
+
+
 
 
