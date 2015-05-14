@@ -1,14 +1,18 @@
-<h1><%= @title %></h1>
+<h1><%= @product.name %></h1>
 
-<img src="<%= @photo_link%>">
+<img src="<%= @product.photo %>">
 
-<h1><%= @price %></h1>
+<h1>$<%= @product.price %></h1>
 
-<ul>
-<% @feature_array.each do |feature| %>
-  <li><%= feature %></li>
+<% if @product.descriptions %>
+  <ul>
+    <% @product.descriptions.each do |description| %>
+      <li><%= description.content %></li>
+    <% end %>
+  </ul>
 <% end %>
-</ul>
 
-<a href="/">New Search</a>
+
+
+<p><a href="/">New Search</a></p>
 

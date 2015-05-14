@@ -10,7 +10,8 @@ end
 
 
 post '/products' do
-  p params[:search_terms]
+
+# ******************* REFACTOR INTO HELPERS *******************************************************
 	request = Vacuum.new
 
   request.configure(
@@ -18,19 +19,6 @@ post '/products' do
       aws_secret_access_key: ENV['AMAZON_SECRET_KEY'],
       associate_tag: ENV['AMAZON_ASSOCIATE_TAG']
   )
-
-
-
-  # output = request.item_search(
-  #   query: {
-  #     'Keywords' => "#{params[:search_terms]}",
-  #     'SearchIndex' => 'All',
-  #     'ItemPage' => '1',
-  #     'ItemSearch.Shared.ResponseGroup' => 'Large',
-  #   }
-  # )
-
-
 
   output = request.item_search(
     query: {
@@ -45,18 +33,48 @@ post '/products' do
 
   # This let's you access the hash:
   data = output.to_h
-  @photo_link = data['ItemSearchResponse']['Items']['Item'].first['LargeImage']['URL']
+  @photo = data['ItemSearchResponse']['Items']['Item'].first['LargeImage']['URL']
   price_link = data['ItemSearchResponse']['Items']['Item'].first
 
-  price = price_link['Offers']['Offer']['OfferListing']['Price']['FormattedPrice'].to_json
+  price = price_link['Offers']['Offer']['OfferListing']['Price']['FormattedPrice']
 
-  @price = price.gsub /"/, ''
+  price_string = price.gsub /"/, ''
+
+  @price = price_string[1..-1].to_f
+
+  @descriptions = price_link['ItemAttributes']['Feature']
+  @name = price_link['ItemAttributes']['Title']
+
+  puts "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+  puts "Description 1 and 2"
+  p @descriptions
 
 
-  @feature_array = price_link['ItemAttributes']['Feature']
-  @title = price_link['ItemAttributes']['Title']
-
-  erb :"products/show"
 
 
+
+
+  # *********************************************************************************************************
+  @product = Product.new(
+    name: @name,
+    photo: @photo,
+    price: @price )
+
+  p @product
+
+  if @product.save
+    if @descriptions
+      if @descriptions[0].length == 1
+        Description.create(content: @descriptions, product_id: @product.id)
+      else
+        @descriptions.each do |description|
+          Description.create(content: description, product_id: @product.id)
+        end
+      end
+    end
+
+    erb :"products/show"
+  else
+    "Did not save.  Please be more specific."
+  end
 end
