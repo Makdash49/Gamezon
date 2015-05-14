@@ -1,18 +1,22 @@
-<h1><%= @product.name %></h1>
-
-<img src="<%= @product.photo %>">
-
-<h1>$<%= @product.price %></h1>
-
-<% if @product.descriptions %>
-  <ul>
-    <% @product.descriptions.each do |description| %>
-      <li><%= description.content %></li>
-    <% end %>
-  </ul>
-<% end %>
+<div class="container">
 
 
+  <h1><%= @product.name %></h1>
 
-<p><a href="/">New Search</a></p>
+  <img src="<%= @product.photo %>">
 
+  <h1>$<%= @product.price %></h1>
+
+  <% if @product.descriptions %>
+    <ul>
+      <% @product.descriptions.each do |description| %>
+        <li><%= description.content %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+
+
+  <p><a href="/">New Search</a></p>
+
+</div>
