@@ -1,3 +1,13 @@
 <img src="<%= @photo_link%>">
 
 <h1><%= @price %></h1>
+
+<ul>
+<% @feature_array.each do |feature| %>
+  <li><%= feature %></li>
+<% end %>
+</ul>
+
+
+
+

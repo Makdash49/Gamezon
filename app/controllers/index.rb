@@ -11,12 +11,9 @@ get '/' do
 # )
 
 
-
-
-
   output = request.item_search(
     query: {
-      'Keywords' => 'harry potter first book',
+      'Keywords' => 'cigarette',
       'SearchIndex' => 'All',
       'ItemPage' => '1',
       'ItemSearch.Shared.ResponseGroup' => 'Large',
@@ -33,7 +30,9 @@ get '/' do
   price = price_link['Offers']['Offer']['OfferListing']['Price']['FormattedPrice'].to_json
 
   @price = price.gsub /"/, ''
-  # ['Offers']]['Offer']['OfferListing']
+
+
+  @feature_array = price_link['ItemAttributes']['Feature']
 
   erb :show
 
