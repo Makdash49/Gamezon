@@ -101,7 +101,10 @@ post '/games' do
 end
 
 get "/games/:game_id/matches/new" do
-  @product = Product.first
+  random_number = rand(1..Product.count)
+  puts "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
+  puts random_number
+  @product = Product.find(random_number)
   @game = Game.find(params[:game_id])
   erb :"matches/new"
 end
@@ -141,12 +144,6 @@ get '/games/:game_id/matches/:match_id' do
   erb :"matches/show"
 end
 
-# get '/matches/new' do
-#   @game = Game.find(current_game_id)
-#   @product = Product.last
-#   # # We could make a helper that has the current game id.
-#   erb :"matches/new"
-# end
 
 
 
