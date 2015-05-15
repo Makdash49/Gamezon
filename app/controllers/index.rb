@@ -17,9 +17,9 @@ post '/products' do
 	request = Vacuum.new
 
   request.configure(
-      aws_access_key_id: AMAZON_ACCESS_KEY,
-      aws_secret_access_key: AMAZON_SECRET_KEY,
-      associate_tag: AMAZON_ASSOCIATE_TAG
+      aws_access_key_id: ENV['AMAZON_ACCESS_KEY'],
+      aws_secret_access_key: ENV['AMAZON_SECRET_KEY'],
+      associate_tag: ENV['AMAZON_ASSOCIATE_TAG']
   )
 
   output = request.item_search(
