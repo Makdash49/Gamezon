@@ -103,10 +103,16 @@ end
 get "/games/:game_id/matches/new" do
   @game = Game.find(params[:game_id])
   index = @game.product_index
-  @product = Product.all[index]
-  @game.product_index += 1
-  @game.save
-  erb :"matches/new"
+  product_count = Product.count
+
+  if index < product_count
+    @product = Product.all[index]
+    @game.product_index += 1
+    @game.save
+    erb :"matches/new"
+  else
+    erb :"games/show"
+  end
 end
 
 
@@ -121,7 +127,15 @@ post '/games/:game_id/matches' do
   @guess1diff = @product.price - params[:player1_guess].to_i
   @guess2diff = @product.price - params[:player2_guess].to_i
 
-  if @player1_guess > @product.price && @player2_guess <= @product.price
+  puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+  p @player1_guess
+  p @player2_guess
+
+  if @player1_guess == 0 && @player2_guess == 0
+    message = "You both forgot to bid!  No winner!"
+  elsif @player1_guess > @product.price && @player2_guess > @product.price
+    message = "You both over bid! No winner!"
+  elsif @player1_guess > @product.price && @player2_guess <= @product.price
     @game.player2_score += 1
     @game.save
     message = "#{@game.player2} wins!"
@@ -133,10 +147,12 @@ post '/games/:game_id/matches' do
     @game.player1_score += 1
     @game.save
     message = "#{@game.player1} wins!"
-  else
+  elsif @guess1diff > @guess2diff
     @game.player2_score += 1
     @game.save
     message = "#{@game.player2} wins!"
+  elsif @player2_guess == @player1_guess
+    message = "You both bid the same! No winner!"
   end
 
   # Ok.  So we want to subtrack the guesses from the product price.
