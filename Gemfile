@@ -3,6 +3,7 @@ ruby '2.0.0'
 
 # PostgreSQL driver
 # gem 'pg'
+# commented out for heroku version.
 
 # Sinatra driver
 gem 'sinatra'
