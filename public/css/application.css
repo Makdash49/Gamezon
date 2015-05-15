@@ -1,0 +1,41 @@
+.container {
+  margin: 60px auto;
+  width: 600px;
+  padding: 0px 20px 20px 20px;
+  border: 1px dotted black;
+  background-color: white;
+  border-radius: 25px;
+}
+
+th {
+  text-align: left;
+}
+
+.photo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto }
+
+
+
+html {
+  background: url("http://www.padgadget.com/wp-content/appsicons/388493457_screen1.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.submit {
+  padding: 1em;
+}
+
+
+.search {
+  margin: 48em auto;
+  width: 600px;
+  padding: 0px 20px 20px 20px;
+  border: 1px dotted black;
+  background-color: white;
+  border-radius: 25px;
+}

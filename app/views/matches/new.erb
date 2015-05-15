@@ -1,0 +1,29 @@
+<div class="container">
+
+    <h1><%= @product.name %></h1>
+
+  <img src="<%= @product.photo %>" class="photo">
+
+  <% if @product.descriptions.first %>
+  <b><u>Descriptions:</u></b>
+    <ul>
+        <li><%= @product.descriptions.all[0].content %></li>
+  <% end %>
+  <% if @product.descriptions.all[1] %>
+        <li><%= @product.descriptions.all[1].content %></li>
+    <% end %>
+    </ul>
+
+
+
+
+  <h3>Can you guess the price without going over?</h3>
+
+  <form action="/games/<%= @game.id %>/matches" method="Post">
+    $<input type="text" name="player1_guess" placeholder="<%= @game.player1 %>'s Guess...">
+    $<input type="text" name="player2_guess" placeholder="<%= @game.player2 %>'s Guess...">
+    <input type="hidden" name="product_id" value="<%= @product.id %>" >
+    <input type="submit" value="ENTER">
+  </form>
+
+</div>
