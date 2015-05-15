@@ -113,16 +113,39 @@ end
 
 post '/games/:game_id/matches' do
   @game = Game.find(params[:game_id])
+  @product = Product.find(params[:product_id])
 
-  if params[:player1_guess] > params[:player2_guess]
+  @player1_guess = params[:player1_guess].to_i
+  @player2_guess = params[:player2_guess].to_i
+
+  @guess1diff = @product.price - params[:player1_guess].to_i
+  @guess2diff = @product.price - params[:player2_guess].to_i
+
+  if @player1_guess > @product.price && @player2_guess <= @product.price
+    @game.player2_score += 1
+    @game.save
+    message = "#{@game.player2} wins!"
+  elsif @player2_guess > @product.price && @player1_guess <= @product.price
     @game.player1_score += 1
     @game.save
-    message = "#{@game.player1} is the winner!"
+    message = "#{@game.player1} wins!"
+  elsif @guess1diff < @guess2diff
+    @game.player1_score += 1
+    @game.save
+    message = "#{@game.player1} wins!"
   else
     @game.player2_score += 1
     @game.save
-    message = "#{@game.player2} is the winner!"
+    message = "#{@game.player2} wins!"
   end
+
+  # Ok.  So we want to subtrack the guesses from the product price.
+  # Say the price is 6.00.  If player1 guessed 3 dollars, this difference
+  # is 3 dollars.  If player2 guessed 4 dollars, the difference is 2 dollars.
+  # Player two wins because the difference is less.  Now if one player overbid
+  # then that player lost provided the other player did not overbid.
+  # If they both over bid then they should both have to guess again, or they
+  # both lose and no one wins the price.
 
   match = Match.new(player1_guess: params[:player1_guess],
                     player2_guess: params[:player2_guess],
