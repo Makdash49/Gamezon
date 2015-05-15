@@ -103,7 +103,7 @@ DEPENDENCIES
   factory_girl
   faker
   hirb
-  pg (= 0.17.1)
+  pg
   rack-test
   rake
   rspec (~> 3.0)

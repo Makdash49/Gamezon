@@ -2,8 +2,8 @@ source 'https://rubygems.org'
 ruby '2.0.0'
 
 # PostgreSQL driver
-# gem 'pg'
-# commented out for heroku version.
+gem 'pg'
+# commented out for heroku version, BUT I think it's ok.  Will test.
 
 # Sinatra driver
 gem 'sinatra'
@@ -19,9 +19,9 @@ gem 'hirb'
 gem 'amazon-ecs'
 gem 'vacuum'
 
-group :production do
-  gem 'pg',             '0.17.1'
-end
+# group :production do
+#   gem 'pg',             '0.17.1'
+# end
 
 group :test do
   gem 'shoulda-matchers'
