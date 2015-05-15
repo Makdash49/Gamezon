@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.0.0'
 
 # PostgreSQL driver
-gem 'pg'
+# gem 'pg'
 
 # Sinatra driver
 gem 'sinatra'
@@ -17,6 +17,10 @@ gem 'shotgun'
 gem 'hirb'
 gem 'amazon-ecs'
 gem 'vacuum'
+
+group :production do
+  gem 'pg',             '0.17.1'
+end
 
 group :test do
   gem 'shoulda-matchers'
