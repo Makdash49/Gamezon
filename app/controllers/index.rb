@@ -101,11 +101,11 @@ post '/games' do
 end
 
 get "/games/:game_id/matches/new" do
-  random_number = rand(1..Product.count)
-  puts "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
-  puts random_number
-  @product = Product.find(random_number)
   @game = Game.find(params[:game_id])
+  index = @game.product_index
+  @product = Product.all[index]
+  @game.product_index += 1
+  @game.save
   erb :"matches/new"
 end
 

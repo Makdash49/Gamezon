@@ -6,7 +6,7 @@
 
   <img src="<%= @product.photo %>" class="photo">
 
-
+<b><u>Descriptions:</u></b>
   <% if @product.descriptions %>
     <ul>
       <% @product.descriptions.each do |description| %>
@@ -14,6 +14,8 @@
       <% end %>
     </ul>
   <% end %>
+
+
 
 
   <h3>Can you guess the price without going over?</h3>

@@ -6,6 +6,7 @@ class CreateGames < ActiveRecord::Migration
       t.string :winner
       t.integer :player1_score, :default => 0
       t.integer :player2_score, :default => 0
+      t.integer :product_index, :default => 0
 
       t.timestamps
     end
