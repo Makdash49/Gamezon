@@ -6,12 +6,11 @@
 
   <img src="<%= @product.photo %>" class="photo">
 
-<b><u>Descriptions:</u></b>
-  <% if @product.descriptions %>
+  <% if @product.descriptions.first %>
+  <b><u>Descriptions:</u></b>
     <ul>
-      <% @product.descriptions.each do |description| %>
-        <li><%= description.content %></li>
-      <% end %>
+        <li><%= @product.descriptions.all[0].content %></li>
+        <li><%= @product.descriptions.all[1].content %></li>
     </ul>
   <% end %>
 
