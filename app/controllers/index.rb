@@ -111,6 +111,14 @@ get "/games/:game_id/matches/new" do
     @game.save
     erb :"matches/new"
   else
+    if @game.player1_score > @game.player2_score
+      @message = "#{@game.player1} is the Winner!"
+    elsif @game.player2_score > @game.player1_score
+      @message = "#{@game.player2} is the Winner!"
+    else
+      @message = "It's a tie!"
+    end
+
     erb :"games/show"
   end
 end
