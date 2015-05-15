@@ -3,8 +3,9 @@ class CreateMatches < ActiveRecord::Migration
     create_table :matches do |t|
       t.float :player1_guess
       t.float :player2_guess
-      t.integer :winner
       t.integer :game_id
+      t.integer :product_id
+      t.string :winner_message
 
       t.timestamps
     end

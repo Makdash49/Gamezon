@@ -21,6 +21,7 @@
   <form action="/games/<%= @game.id %>/matches" method="Post">
     $<input type="text" name="player1_guess" placeholder="<%= @game.player1 %> Guess...">
     $<input type="text" name="player2_guess" placeholder="<%= @game.player2 %> Guess...">
+    <input type="hidden" name="product_id" value="<%= @product.id %>" >
     <input type="submit" value="ENTER">
   </form>
 

@@ -110,8 +110,19 @@ end
 
 post '/games/:game_id/matches' do
   @game = Game.find(params[:game_id])
-  params[:player1_guess] + " " + params[:player2_guess] + " " + params[:game_id]
-  match = Match.new(player1_guess: params[:player1_guess], player2_guess: params[:player2_guess], game_id: params[:game_id])
+
+  if params[:player1_guess] > params[:player2_guess]
+    message = "Player1 is the winner!"
+  else
+    message = "Player2 is the winner!"
+  end
+
+  match = Match.new(player1_guess: params[:player1_guess],
+                    player2_guess: params[:player2_guess],
+                    game_id: params[:game_id],
+                    product_id: params[:product_id],
+                    winner_message: message
+                    )
   if match.save
     redirect "/games/#{@game.id}/matches/#{match.id}"
   else
@@ -123,11 +134,6 @@ end
 get '/games/:game_id/matches/:match_id' do
   @game = Game.find(params[:game_id])
   @match = Match.find(params[:match_id])
-  if @match.player1_guess > @match.player2_guess
-    @message = "Player1 is the winner!"
-  else
-    @message = "Player2 is the winner!"
-  end
   erb :"matches/show"
 end
 
