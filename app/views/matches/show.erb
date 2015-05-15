@@ -1,11 +1,22 @@
 
 <div class="container">
 
-  <p><%= @match.player1_guess %></p>
-  <p><%= @match.player2_guess %></p>
-  <p><%= @match.product.name %></p>
-  <p><%= @match.product.price %></p>
-  <p><%= @match.winner_message %></p>
+
+  <h1><%= @match.product.name %></h1>
+
+  <img src="<%= @match.product.photo %>" class="photo">
+
+  <p><%=@match.game.player1 %>'s Guess: $<%= @match.player1_guess %></p>
+
+  <p><%=@match.game.player2 %>'s Guess: $<%= @match.player2_guess %></p>
+
+  <p><b>Actual Price: <u>$<%= @match.product.price %></u></b></p>
+
+  <h1><%= @match.winner_message %></h1>
+
+  <u>Game Score:</u><br>
+  <%= "#{@match.game.player1}: #{@match.game.player1_score.to_s}" %><br>
+  <%= "#{@match.game.player2}: #{@match.game.player2_score.to_s}" %>
 
   <br><br>
 

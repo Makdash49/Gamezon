@@ -112,9 +112,13 @@ post '/games/:game_id/matches' do
   @game = Game.find(params[:game_id])
 
   if params[:player1_guess] > params[:player2_guess]
-    message = "Player1 is the winner!"
+    @game.player1_score += 1
+    @game.save
+    message = "#{@game.player1} is the winner!"
   else
-    message = "Player2 is the winner!"
+    @game.player2_score += 1
+    @game.save
+    message = "#{@game.player2} is the winner!"
   end
 
   match = Match.new(player1_guess: params[:player1_guess],
