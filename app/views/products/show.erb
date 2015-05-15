@@ -6,8 +6,8 @@
   <img src="<%= @product.photo %>" class="photo">
   <br>
 
-<b><u>Descriptions:</u></b>
   <% if @product.descriptions %>
+    <b><u>Descriptions:</u></b>
     <ul>
       <% @product.descriptions.each do |description| %>
         <li><%= description.content %></li>
