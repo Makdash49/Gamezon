@@ -9,11 +9,10 @@
 
   <% if @product.descriptions %>
     <ul>
-      <% @product.descriptions.each do |description| %>
-        <li><%= description.content %></li>
-      <% end %>
+      <li><%= @product.descriptions.first.content %></li>
     </ul>
   <% end %>
+
 
 
 
