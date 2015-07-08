@@ -10,10 +10,10 @@ require 'rubygems'
 
 
 # COMMENT THIS OUT FOR HEROKU
-# if ENV['RACK_ENV'] == 'test' || ENV['RACK_ENV'] == 'development'
-#   require 'dotenv'
-#   Dotenv.load
-# end
+if ENV['RACK_ENV'] == 'test' || ENV['RACK_ENV'] == 'development'
+  require 'dotenv'
+  Dotenv.load
+end
 
 require 'uri'
 require 'pathname'
